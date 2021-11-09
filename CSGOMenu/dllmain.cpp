@@ -6,13 +6,25 @@
 
 #include "Aimbot.h"
 
-std::thread *g_aimbot_thr = nullptr;
-std::atomic_bool g_should_quit = false;
+DWORD WINAPI OnDllAttach(PVOID base) {
+  while (!GetAsyncKeyState(VK_DELETE) & 0x8000) {
+    Run();
+    Sleep(1);
+  }
+  FreeLibraryAndExitThread(static_cast<HMODULE>(base), 0);
+}
+
+VOID WINAPI OnDllDetach() {
+//#ifdef _DEBUG
+//  HWND hw_ConsoleHwnd = GetConsoleWindow();
+//  PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
+//#endif  // _DEBUG
+}
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
                       LPVOID lpReserved) {
   switch (ul_reason_for_call) {
-    case DLL_THREAD_ATTACH:
+    case DLL_PROCESS_ATTACH:
       __fallthrough;
     case DLL_PROCESS_ATTACH:
       if (!g_aimbot_thr) {
@@ -39,5 +51,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
       }
       break;
   }
+  Beep(100, 2000);
   return TRUE;
 }
