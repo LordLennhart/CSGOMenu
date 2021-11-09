@@ -25,7 +25,7 @@ math::Vector3* Player::GetViewOffset() {
          hazedumper::netvars::m_vecViewOffset;
 }
 
-math::Vector3* Player::GetBonePos(int boneId) {
+math::Vector3 Player::GetBonePos(int boneId) {
   uint32_t boneMatrix =
       *(uint32_t*)*(uint32_t*)this + hazedumper::netvars::m_dwBoneMatrix;
   math::Vector3 bonePos;
@@ -33,7 +33,7 @@ math::Vector3* Player::GetBonePos(int boneId) {
   bonePos.y = *(float*)boneMatrix + 0x30 * boneId + 0x1C;
   bonePos.z = *(float*)boneMatrix + 0x30 * boneId + 0x2C;
 
-  return &bonePos;
+  return bonePos;
 }
 
 int* Player::GetHealth() {

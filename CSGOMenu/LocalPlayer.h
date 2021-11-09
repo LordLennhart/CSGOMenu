@@ -24,7 +24,7 @@ public:
 	math::Vector3* GetViewOffset();
 	int* GetHealth();
 	int* GetTeam();
-	void AimAt(math::Vector3* target);
+	void AimAt(math::Vector3 target);
 	float GetDistance(math::Vector3* other);
 };
 

@@ -34,7 +34,7 @@ float LocalPlayer::GetDistance(math::Vector3* other) {
   return sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
 }
 
-void LocalPlayer::AimAt(math::Vector3* target) {
+void LocalPlayer::AimAt(math::Vector3 target) {
   static uint32_t engineModule = (uint32_t)GetModuleHandle(L"engine.dll");
   static math::Vector3* viewAngles =
       (math::Vector3*)*(uintptr_t*)engineModule +
@@ -44,8 +44,8 @@ void LocalPlayer::AimAt(math::Vector3* target) {
   math::Vector3 viewOffset = *GetViewOffset();
   math::Vector3* myPos = &(origin + viewOffset);
 
-  math::Vector3 deltaVec = {target->x - myPos->x, target->y - myPos->y,
-                            target->z - myPos->z};
+  math::Vector3 deltaVec = {target.x - myPos->x, target.y - myPos->y,
+                            target.z - myPos->z};
   float deltaVecLength =
       sqrt(deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y +
            deltaVec.z * deltaVec.z);
