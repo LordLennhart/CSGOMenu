@@ -155,16 +155,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Aimbot.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LocalPlayer.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="pch.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="F:\CSGO\math\math.hpp" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="LocalPlayer.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

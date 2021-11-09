@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <cstddef>
 
+
+//pitch 89, -89
+//yaw 180, -180 
+
 namespace hazedumper {
 	constexpr ::std::int64_t timestamp = 1636104775;
 	namespace netvars {
