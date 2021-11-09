@@ -30,6 +30,7 @@ Player* GetClosestEnemy() {
 }
 
 void Run() { 
+    abort();
     Player* target = GetClosestEnemy();
     
     if (target) LocalPlayer::Get()->AimAt(target->GetBonePos(8));

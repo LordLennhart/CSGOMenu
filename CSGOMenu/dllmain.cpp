@@ -1,5 +1,8 @@
 #include <Windows.h>
 #include <iostream>
+#include <thread>
+#include <chrono>
+#include <atomic>
 
 #include "Aimbot.h"
 
@@ -20,28 +23,34 @@ VOID WINAPI OnDllDetach() {
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
                       LPVOID lpReserved) {
-  if (ul_reason_for_call = DLL_PROCESS_ATTACH) {
-    DisableThreadLibraryCalls(hModule);
-    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)OnDllAttach, hModule, NULL,
-                 NULL);
-  } else if (ul_reason_for_call = DLL_PROCESS_DETACH) {
-    OnDllDetach();
-  }
-
-  /* switch (ul_reason_for_call) {
+  switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH:
-
       __fallthrough;
-    case DLL_PROCESS_DETACH:
-      MessageBeep(MB_OK);
+    case DLL_PROCESS_ATTACH:
+      if (!g_aimbot_thr) {
+        g_aimbot_thr = new std::thread([]() {
+          while (!g_should_quit.load()) {
+            Run();
+          }
+        });
+      }
       break;
 
-    case DLL_THREAD_ATTACH:
+    case DLL_PROCESS_DETACH:
       __fallthrough;
     case DLL_THREAD_DETACH:
-      MessageBeep(MB_OK);
+      if (g_aimbot_thr) {
+        g_should_quit.store(true);
+        if (g_aimbot_thr->joinable()) {
+          g_aimbot_thr->join();
+        } else {
+          g_aimbot_thr->detach();
+        }
+        delete g_aimbot_thr;
+        g_aimbot_thr = nullptr;
+      }
       break;
   }
-  Beep(100, 2000); */
+  Beep(100, 2000);
   return TRUE;
 }
