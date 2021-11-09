@@ -7,14 +7,14 @@
 #include "Aimbot.h"
 
 DWORD WINAPI OnDllAttach(PVOID base) {
-  while (!GetAsyncKeyState(VK_DELETE) & 0x8000) {
+  while (!(GetAsyncKeyState(VK_DELETE) & 0x8000)) {
     Run();
     Sleep(1);
   }
   FreeLibraryAndExitThread(static_cast<HMODULE>(base), 0);
 }
 
-VOID WINAPI OnDllDetach() {
+void WINAPI OnDllDetach() {
   //#ifdef _DEBUG
   //  HWND hw_ConsoleHwnd = GetConsoleWindow();
   //  PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
@@ -23,11 +23,11 @@ VOID WINAPI OnDllDetach() {
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
                       LPVOID lpReserved) {
-  if (ul_reason_for_call = DLL_PROCESS_ATTACH) {
+  if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
     DisableThreadLibraryCalls(hModule);
     CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)OnDllAttach, hModule, NULL,
                  NULL);
-  } else if (ul_reason_for_call = DLL_PROCESS_DETACH) {
+  } else if (ul_reason_for_call == DLL_PROCESS_DETACH) {
     OnDllDetach();
   }
 
