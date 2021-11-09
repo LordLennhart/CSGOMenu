@@ -1,0 +1,4 @@
+LIBRARY CSGOMenu
+EXPORTS
+	Load @1
+	Unload @2

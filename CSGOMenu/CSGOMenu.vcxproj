@@ -100,6 +100,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>definitions.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>
@@ -123,6 +124,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>definitions.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>
@@ -142,6 +144,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>definitions.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>
@@ -165,6 +168,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>definitions.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>
@@ -181,6 +185,9 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="LocalPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="definitions.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

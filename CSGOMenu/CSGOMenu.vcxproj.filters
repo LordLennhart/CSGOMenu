@@ -24,6 +24,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{59f1dc36-6a3b-4922-8ff0-10f09ff26ad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="def">
+      <UniqueIdentifier>{4fe1d126-e7ca-4418-9920-67077553fae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,5 +38,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="definitions.def">
+      <Filter>def</Filter>
+    </None>
   </ItemGroup>
 </Project>

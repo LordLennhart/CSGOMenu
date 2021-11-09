@@ -3,6 +3,7 @@
 
 #include "Aimbot.h"
 
+extern "C" {
 DWORD WINAPI Load(_In_ LPVOID lpParameter) {
 #ifdef _DEBUG
   MessageBox(NULL, L"load has been called", L"Lol", MB_OK);
@@ -19,6 +20,7 @@ void __stdcall Unload() {
 #ifdef _DEBUG
   MessageBox(NULL, L"Unload has been called", L"Lol", MB_OK);
 #endif  // _DEBUG
+}
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
