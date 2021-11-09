@@ -35,6 +35,7 @@ float LocalPlayer::GetDistance(math::Vector3* other) {
 }
 
 void LocalPlayer::AimAt(math::Vector3 target) {
+  Beep(4000, 400);
   static uint32_t engineModule = (uint32_t)GetModuleHandle(L"engine.dll");
   static math::Vector3* viewAngles =
       (math::Vector3*)*(uintptr_t*)(engineModule +
@@ -46,12 +47,21 @@ void LocalPlayer::AimAt(math::Vector3 target) {
 
   math::Vector3 deltaVec = {target.x - myPos->x, target.y - myPos->y,
                             target.z - myPos->z};
+  std::wstringstream ws;
+  ws << "myPos: " << *myPos << "\n"
+     << "deltaVec: " << deltaVec << "\n";
+
   float deltaVecLength =
       sqrt(deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y +
            deltaVec.z * deltaVec.z);
 
   float pitch = -asin(deltaVec.z / deltaVecLength) * (180 / PI);
   float yaw = atan2(deltaVec.y, deltaVec.x) * (180 / PI);
+
+  ws << "Yaw: " << yaw << "\n"
+     << "Pitch: " << pitch;
+  MessageBox(NULL, ws.str().c_str(), L"Hurensöhn", MB_OK | MB_SETFOREGROUND);
+
 
   viewAngles->x = pitch;
   viewAngles->y = yaw;

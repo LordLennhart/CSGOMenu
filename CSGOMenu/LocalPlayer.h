@@ -1,6 +1,8 @@
 #include <Windows.h>
 #include <math.h>
 
+#include <sstream>
+
 #include <cstdint>
 
 #include "Math.h"
