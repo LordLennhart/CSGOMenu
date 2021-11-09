@@ -37,8 +37,8 @@ float LocalPlayer::GetDistance(math::Vector3* other) {
 void LocalPlayer::AimAt(math::Vector3 target) {
   static uint32_t engineModule = (uint32_t)GetModuleHandle(L"engine.dll");
   static math::Vector3* viewAngles =
-      (math::Vector3*)*(uintptr_t*)engineModule +
-      hazedumper::signatures::dwClientState +
+      (math::Vector3*)*(uintptr_t*)(engineModule +
+      hazedumper::signatures::dwClientState) +
       hazedumper::signatures::dwClientState_ViewAngles;
   math::Vector3 origin = *GetOrigin();
   math::Vector3 viewOffset = *GetViewOffset();
