@@ -12,6 +12,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <tchar.h>
+#include <conio.h>
 
 typedef std::basic_string<TCHAR> String;
 typedef void(__stdcall *unload_function_t)();
@@ -36,82 +37,29 @@ String GetErrorMessage(DWORD dwErrorCode) {
 }
 void HandleError(std::wstring_view err);
 DWORD GetProcId(const wchar_t *procName);
+bool InjectDLL(DWORD process_id_, const wchar_t *dll_file_);
 
-int wmain(int argc, wchar_t** argv) {
-  HANDLE process_handle = NULL, remote_thread = NULL;
-  HMODULE lib = NULL;
-  unload_function_t unload_func_ptr = NULL;
-
+int wmain(int argc, wchar_t **argv) {
   try {
     if (argc != 3) {
-      
       std::cerr << "Usage: [dll_path] [executable]\n";
       return EXIT_FAILURE;
     }
 
     // Get process handle
-    std::wstring dll_path = argv[2], exe_path = argv[1];
+    std::wstring dll_path = argv[1], exe_path = argv[2];
 
     DWORD pid = GetProcId(exe_path.c_str());
     if (!pid) HandleError(L"Couldn't get pid");
-    process_handle = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
-    if (!process_handle) HandleError(L"Couldn't open handle to process");
 
-    // load library
-    lib = LoadLibrary(dll_path.c_str());
-    if (!lib) HandleError(L"Couldn't load specified library");
-
-    // Load functions
-
-    unload_func_ptr = (unload_function_t)GetProcAddress(lib, "Unload");
-    LPTHREAD_START_ROUTINE entry_func_ptr =
-        (LPTHREAD_START_ROUTINE)GetProcAddress(lib, "Load");
-
-    if (!unload_func_ptr || !entry_func_ptr)
-      HandleError(L"Couldn't load functions");
-
-    // Launch dll
-    remote_thread = CreateRemoteThread(process_handle, NULL, 0, entry_func_ptr,
-                                       NULL, 0, NULL);
-    if (!remote_thread) HandleError(L"Couldn't launch remote thread");
-
-    MSG messages;
-    /* Run the message loop. It will run until GetMessage() returns 0 */
-    while (GetMessage(&messages, NULL, 0, 0)) {
-      /* Translate virtual-key messages into character messages */
-      TranslateMessage(&messages);
-
-      if (messages.message == WM_KEYDOWN) {
-        if (messages.wParam == VK_ESCAPE) {
-          break;
-        }
-      }
-
-      /* Send message to WindowProcedure */
-      DispatchMessage(&messages);
-    }
+    std::cout << "Trying to inject dll...\n";
+    if (!InjectDLL(pid, dll_path.c_str())) HandleError(L"Couldn't inject dll");
+    std::cout << "Success!\nPress any key to exit...\n";
+    int temp = _getch();
+    
   } catch (...) {
-    if (lib) {
-      if (remote_thread) {
-        if (unload_func_ptr) {
-          unload_func_ptr();
-        }
-        CloseHandle(remote_thread);
-      }
-      FreeLibrary(lib);
-    }
-    if (process_handle) {
-      CloseHandle(process_handle);
-    }
     return EXIT_FAILURE;
   }
-
-  if (unload_func_ptr) {
-    unload_func_ptr();
-  }
-  CloseHandle(remote_thread);
-  FreeLibrary(lib);
-  CloseHandle(process_handle);
   return EXIT_SUCCESS;
 }
 
@@ -123,8 +71,7 @@ void HandleError(std::wstring_view err) {
   throw std::runtime_error("an error occured");
 }
 
-DWORD
-GetProcId(const wchar_t *procName) {
+DWORD GetProcId(const wchar_t *procName) {
   DWORD procId = 0;
   HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
   if (hSnap != INVALID_HANDLE_VALUE) {
@@ -142,4 +89,53 @@ GetProcId(const wchar_t *procName) {
   }
   CloseHandle(hSnap);
   return procId;
+}
+bool InjectDLL(DWORD process_id_, const wchar_t *dll_file_) {
+  // get the full path of the dll file
+  TCHAR full_dll_path[MAX_PATH];
+  GetFullPathName(dll_file_, MAX_PATH, full_dll_path, NULL);
+
+  // get the function LoadLibraryA
+  LPVOID load_library =
+      GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryW");
+  if (load_library == NULL) {
+    return false;
+  }
+
+  // open the process
+  HANDLE process_handle = OpenProcess(PROCESS_ALL_ACCESS, false, process_id_);
+  if (process_handle == NULL) {
+    return false;
+  }
+
+  // allocate space to write the dll location
+  LPVOID dll_parameter_address =
+      VirtualAllocEx(process_handle, 0, wcslen(full_dll_path),
+                     MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+  if (dll_parameter_address == NULL) {
+    CloseHandle(process_handle);
+    return false;
+  }
+
+  // write the dll location to the space we previously allocated
+  BOOL wrote_memory =
+      WriteProcessMemory(process_handle, dll_parameter_address, full_dll_path,
+                         wcslen(full_dll_path), NULL);
+  if (wrote_memory == false) {
+    CloseHandle(process_handle);
+    return false;
+  }
+
+  // launch the dll using LoadLibraryA
+  HANDLE dll_thread_handle = CreateRemoteThread(
+      process_handle, 0, 0, (LPTHREAD_START_ROUTINE)load_library,
+      dll_parameter_address, 0, 0);
+  if (dll_thread_handle == NULL) {
+    CloseHandle(process_handle);
+    return false;
+  }
+
+  CloseHandle(dll_thread_handle);
+  CloseHandle(process_handle);
+  return true;
 }
