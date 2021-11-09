@@ -12,10 +12,10 @@ DWORD WINAPI OnDllAttach(PVOID base) {
 }
 
 VOID WINAPI OnDllDetach() {
-//#ifdef _DEBUG
-//  HWND hw_ConsoleHwnd = GetConsoleWindow();
-//  PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
-//#endif  // _DEBUG
+  //#ifdef _DEBUG
+  //  HWND hw_ConsoleHwnd = GetConsoleWindow();
+  //  PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
+  //#endif  // _DEBUG
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
