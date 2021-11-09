@@ -10,6 +10,9 @@
     <ClInclude Include="framework.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="Offsets.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="header">
