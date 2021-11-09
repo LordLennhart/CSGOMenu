@@ -50,7 +50,7 @@ int wmain(int argc, wchar_t** argv) {
     }
 
     // Get process handle
-    std::wstring dll_path = argv[2], exe_path = argv[1];
+    std::wstring dll_path = argv[1], exe_path = argv[2];
 
     DWORD pid = GetProcId(exe_path.c_str());
     if (!pid) HandleError(L"Couldn't get pid");

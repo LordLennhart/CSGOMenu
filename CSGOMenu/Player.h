@@ -19,7 +19,7 @@ public:
 	int* GetTeam();
 	math::Vector3* GetOrigin();
 	math::Vector3* GetViewOffset();
-	math::Vector3 GetBonePOs(int boneId);
+	math::Vector3 GetBonePos(int boneId);
 };
 
 #endif // !PLAYER_H

@@ -38,6 +38,12 @@
     <ClCompile Include="Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="definitions.def">

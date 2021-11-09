@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <math.h>
 
 #include <cstdint>
 
@@ -7,6 +8,8 @@
 
 #ifndef LOCALPLAYER_H
 #define LOCALPLAYER_H
+
+#define PI 3.14159265359
 
 class LocalPlayer {
 private:
@@ -22,7 +25,7 @@ public:
 	int* GetHealth();
 	int* GetTeam();
 	void AimAt(math::Vector3* target);
-	float GetDistance(math::Vector3*);
+	float GetDistance(math::Vector3* other);
 };
 
 #endif // !LOCALPLAYER_H
