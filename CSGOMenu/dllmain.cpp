@@ -14,7 +14,7 @@ DWORD WINAPI OnDllAttach(PVOID base) {
   SetConsoleTitleA("BLA - Debug");
 #endif  // _DEBUG
 
-  while (!GetAsyncKeyState(VK_DELETE) & 0x8000) {
+  while (!(GetAsyncKeyState(VK_DELETE) & 0x8000)) {
     Run();
     Sleep(1);
   }
@@ -22,6 +22,7 @@ DWORD WINAPI OnDllAttach(PVOID base) {
 }
 
 VOID WINAPI OnDllDetach() {
+  Beep(100, 500);
 #ifdef _DEBUG
   fclose((FILE*)stdin);
   fclose((FILE*)stdout);

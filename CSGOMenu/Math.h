@@ -1,6 +1,8 @@
 #ifndef MATH_H
 #define MATH_H
 
+#include <iostream>
+
 namespace math {
 
 class Vector3 {
@@ -20,6 +22,9 @@ class Vector3 {
 
     return *this;
   }
+
+  friend std::ostream& operator<<(std::ostream& os, const Vector3& vec);
+  friend std::wostream& operator<<(std::wostream& os, const Vector3& vec);
 };
 }  // namespace math
 
