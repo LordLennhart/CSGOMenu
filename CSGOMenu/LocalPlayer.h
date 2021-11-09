@@ -8,8 +8,6 @@
 #ifndef LOCALPLAYER_H
 #define LOCALPLAYER_H
 
-
-
 class LocalPlayer {
 private:
 
