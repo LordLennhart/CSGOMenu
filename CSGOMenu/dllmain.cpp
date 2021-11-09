@@ -23,7 +23,15 @@ VOID WINAPI OnDllDetach() {
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
                       LPVOID lpReserved) {
-  switch (ul_reason_for_call) {
+  if (ul_reason_for_call = DLL_PROCESS_ATTACH) {
+    DisableThreadLibraryCalls(hModule);
+    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)OnDllAttach, hModule, NULL,
+                 NULL);
+  } else if (ul_reason_for_call = DLL_PROCESS_DETACH) {
+    OnDllDetach();
+  }
+
+  /*switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH:
       __fallthrough;
     case DLL_PROCESS_ATTACH:
@@ -50,7 +58,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
         g_aimbot_thr = nullptr;
       }
       break;
-  }
-  Beep(100, 2000);
+  }*/
+  // Beep(100, 2000);
   return TRUE;
 }
