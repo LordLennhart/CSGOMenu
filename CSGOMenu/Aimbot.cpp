@@ -32,5 +32,5 @@ Player* GetClosestEnemy() {
 void Run() { 
     Player* target = GetClosestEnemy();
     
-    if (target) LocalPlayer::Get()->AimAt(&target->GetBonePos(8));
+    if (target) LocalPlayer::Get()->AimAt(target->GetBonePos(8));
 }
