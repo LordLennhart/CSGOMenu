@@ -1,23 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Offsets.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Aimbot.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="LocalPlayer.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>header</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="header">
       <UniqueIdentifier>{9f99a9ca-ff61-463a-a10f-111b1274a41e}</UniqueIdentifier>
     </Filter>
@@ -35,11 +18,22 @@
     <ClCompile Include="Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Aimbot.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aimbot.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalPlayer.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Offsets.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

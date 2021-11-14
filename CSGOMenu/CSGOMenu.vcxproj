@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="LocalPlayer.cpp" />
+    <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aimbot.h" />
+    <ClInclude Include="LocalPlayer.h" />
+    <ClInclude Include="Offsets.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Vector3.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -178,20 +190,6 @@
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Aimbot.h" />
-    <ClInclude Include="LocalPlayer.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Offsets.h" />
-    <ClInclude Include="Player.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Aimbot.cpp" />
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="LocalPlayer.cpp" />
-    <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Player.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

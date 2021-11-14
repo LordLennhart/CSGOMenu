@@ -1,16 +1,40 @@
 #include "Player.h"
 #include "LocalPlayer.h"
 
-#undef max
-
-#include <limits>
-#include <exception>
-#include <sstream>
-
 #ifndef AIMBOT_H
 #define AIMBOT_H
 
-void Run();
+Player* GetClosestEnemy() {
+	LocalPlayer* localPlayer = LocalPlayer::Get();
 
+	float closestDistance = 99999;
+	float closestDistanceIndex = -1;
+
+	for (int i = 1; i < *Player::GetMaxPlayer(); i++) {
+		Player* currentPlayer = Player::GetPlayer(i);
+
+		if (!currentPlayer || !(*(uint32_t*)currentPlayer) || (uint32_t)currentPlayer == (uint32_t)localPlayer) continue;
+		if (*currentPlayer->GetTeam() == *localPlayer->GetTeam()) continue;
+		if (*currentPlayer->GetHealth() < 1 || *localPlayer->GetHealth() < 1) continue;
+		
+
+		float currentDistance = localPlayer->GetDistance(currentPlayer->GetOrigin());
+		if (currentDistance < closestDistance) {
+			closestDistance = currentDistance;
+			closestDistanceIndex = i;
+		}
+
+	}
+
+	if (closestDistanceIndex == -1) return NULL;
+
+	return Player::GetPlayer(closestDistanceIndex);
+
+}
+
+void Run() {
+	Player* closestEnemy = GetClosestEnemy();
+	if (closestEnemy) LocalPlayer::Get()->AimAt(closestEnemy->GetBonePos(8));
+}
 
 #endif // !AIMBOT_H
