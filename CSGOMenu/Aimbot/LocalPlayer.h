@@ -6,6 +6,8 @@
 
 #include "../Math/Vector3.h"
 #include "../offsets.h"
+#include "../Math/Vector.h"
+#include "../extern.h"
 
 #ifndef LOCALPLAYER_H
 #define LOCALPLAYER_H
@@ -20,6 +22,7 @@ public:
 	Vector3* GetOrigin();
 	Vector3* GetViewOffset();
 	int* GetHealth();
+	int* GetShots();
 	int* GetTeam();
 	void AimAt(Vector3* target);
 	float GetDistance(Vector3* other);

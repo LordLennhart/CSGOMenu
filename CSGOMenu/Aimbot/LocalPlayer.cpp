@@ -21,6 +21,10 @@ int* LocalPlayer::GetHealth() {
 	return (int*)(*(uintptr_t*)this + offsets::m_iHealth);
 }
 
+int* LocalPlayer::GetShots() {
+	return (int*)(*(uintptr_t*)this + offsets::m_iShotsFired);
+}
+
 int* LocalPlayer::GetTeam() {
 	return (int*)(*(uintptr_t*)this + offsets::m_iTeamNum);
 }
@@ -35,17 +39,32 @@ float LocalPlayer::GetDistance(Vector3* other) {
 void LocalPlayer::AimAt(Vector3* target) {
 	static uint32_t engineModule = (uint32_t)GetModuleHandle(L"engine.dll");
 	static Vector3* viewAngles = (Vector3*)(*(uint32_t*)(engineModule + offsets::dwClientState) + offsets::dwClientState_ViewAngles);
+	if (esp->settings.aimbot) {
+		Vector3 origin = *GetOrigin();
+		Vector3 viewOffset = *GetViewOffset();
+		Vector3* myPos = &(origin + viewOffset);
 
-	Vector3 origin = *GetOrigin();
-	Vector3 viewOffset = *GetViewOffset();
-	Vector3* myPos = &(origin + viewOffset);
+		Vector3 deltaVec = { target->x - myPos->x, target->y - myPos->y, target->z - myPos->z };
+		float deltaVecLength = sqrt(deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y + deltaVec.z * deltaVec.z);
 
-	Vector3 deltaVec = { target->x - myPos->x, target->y - myPos->y, target->z - myPos->z };
-	float deltaVecLength = sqrt(deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y + deltaVec.z * deltaVec.z);
+		float pitch = -asin(deltaVec.z / deltaVecLength) * (180 / PI);
+		float yaw = atan2(deltaVec.y, deltaVec.x) * (180 / PI);
 
-	float pitch = -asin(deltaVec.z / deltaVecLength) * (180 / PI);
-	float yaw = atan2(deltaVec.y, deltaVec.x) * (180 / PI);
+		viewAngles->x = pitch;
+		viewAngles->y = yaw;
+	}
+	if (esp->settings.rcsControl && *GetShots() > 1) {
+		Vec3 pAng = esp->localEnt->aimPunchAngle;
+		Vec3 punchAngle = { pAng.x * 2, pAng.y * 2, pAng.z * 2 };
+		Vec3 newAngle = { viewAngles->x + oPunch.x - punchAngle.x, viewAngles->y + oPunch.y - punchAngle.y, viewAngles->z + oPunch.z - punchAngle.z };
 
-	viewAngles->x = pitch;
-	viewAngles->y = yaw;
+		//VAC Proof
+		newAngle.Normalize();
+
+		viewAngles->x = newAngle.x;
+		viewAngles->y = newAngle.y;
+
+		if(!esp->settings.aimbot)
+		oPunch = punchAngle;
+	}
 }

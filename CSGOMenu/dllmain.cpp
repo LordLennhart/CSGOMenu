@@ -20,7 +20,7 @@ void APIENTRY hkEndScene(LPDIRECT3DDEVICE9 o_pDevice) {
 
 	//Menu
 	int menuOffX = windowWidth / 2;
-	int menuOffY = 70;
+	int menuOffY = 75;
 	D3DCOLOR enabled = D3DCOLOR_ARGB(255, 0, 255, 0);
 	D3DCOLOR disabled = D3DCOLOR_ARGB(255, 255, 0, 0);
 
@@ -37,7 +37,9 @@ void APIENTRY hkEndScene(LPDIRECT3DDEVICE9 o_pDevice) {
 		DrawText("Velocity ESP [F7]", menuOffX, menuOffY + 6 * 12, esp->settings.velEsp ? enabled : disabled);
 		DrawText("Headline ESP [F8]", menuOffX, menuOffY + 7 * 12, esp->settings.headlineEsp ? enabled : disabled);
 		DrawText("Recoil Crosshair [F9]", menuOffX, menuOffY + 8 * 12, esp->settings.rcsCrosshair ? enabled : disabled);
-		DrawText("Hide Menu [INSERT]", menuOffX, menuOffY + 9 * 12, esp->settings.showMenu ? enabled : disabled);
+		DrawText("RCS [F10]", menuOffX, menuOffY + 9 * 12, esp->settings.rcsControl ? enabled : disabled);
+		DrawText("Aimbot [F11]", menuOffX, menuOffY + 10 * 12, esp->settings.aimbot ? enabled : disabled);
+		DrawText("Hide Menu [INSERT]", menuOffX, menuOffY + 11 * 12, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 
