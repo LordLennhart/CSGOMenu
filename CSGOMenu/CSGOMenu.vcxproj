@@ -19,16 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Aimbot\Aimbot.cpp" />
+    <ClCompile Include="Aimbot\LocalPlayer.cpp" />
+    <ClCompile Include="Aimbot\Player.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="LocalPlayer.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ESP\esp.cpp" />
+    <ClCompile Include="extern.cpp" />
+    <ClCompile Include="Hook\drawing.cpp" />
+    <ClCompile Include="Hook\dx.cpp" />
+    <ClCompile Include="Hook\hook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aimbot.h" />
-    <ClInclude Include="LocalPlayer.h" />
-    <ClInclude Include="Offsets.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Aimbot\Aimbot.h" />
+    <ClInclude Include="Aimbot\LocalPlayer.h" />
+    <ClInclude Include="Aimbot\Player.h" />
+    <ClInclude Include="ESP\esp.h" />
+    <ClInclude Include="extern.h" />
+    <ClInclude Include="Hook\drawing.h" />
+    <ClInclude Include="Hook\dx.h" />
+    <ClInclude Include="Hook\hook.h" />
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="offsets.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -88,6 +101,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -114,6 +129,7 @@
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalDependencies>d3dx9.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)Loader\$(TargetFileName)"</Command>

@@ -2,9 +2,10 @@
 
 #include <Windows.h>
 #include <math.h>
+#include <iostream>
 
-#include "Vector3.h"
-#include "Offsets.h"
+#include "../Math/Vector3.h"
+#include "../offsets.h"
 
 #ifndef LOCALPLAYER_H
 #define LOCALPLAYER_H

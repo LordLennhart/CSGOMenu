@@ -7,33 +7,102 @@
     <Filter Include="src">
       <UniqueIdentifier>{59f1dc36-6a3b-4922-8ff0-10f09ff26ad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aimbot">
+      <UniqueIdentifier>{4a09723a-b0ff-44bd-83d4-477413ed06e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aimbot\Header">
+      <UniqueIdentifier>{108b829c-f5ea-4338-8042-fa18e5edf007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aimbot\Source">
+      <UniqueIdentifier>{58c95f27-2aaf-449f-b675-2d2eca04991f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ESP">
+      <UniqueIdentifier>{bd5e11b9-9b8b-4ffd-8076-7b68a7e70ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ESP\Header">
+      <UniqueIdentifier>{431acc3f-d442-4f26-97fc-027b3bbd4cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ESP\Source">
+      <UniqueIdentifier>{b7c1e170-c1ff-4543-b723-4196e31c2c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hook">
+      <UniqueIdentifier>{65dc7860-ad8f-482a-94c7-6d219c608a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{c35a23d9-1006-4dc6-82b5-59f2ce3914fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hook\Header">
+      <UniqueIdentifier>{9b2f7c8b-7346-4e5a-8274-6901c26c53f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hook\Source">
+      <UniqueIdentifier>{57a9bbff-f2b3-45de-aaef-e63cb7ac8ba5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="LocalPlayer.cpp">
+    <ClCompile Include="extern.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Aimbot\Aimbot.cpp">
+      <Filter>Aimbot\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot\LocalPlayer.cpp">
+      <Filter>Aimbot\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot\Player.cpp">
+      <Filter>Aimbot\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ESP\esp.cpp">
+      <Filter>ESP\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Hook\drawing.cpp">
+      <Filter>Hook\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Hook\dx.cpp">
+      <Filter>Hook\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Hook\hook.cpp">
+      <Filter>Hook\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aimbot.h">
+    <ClInclude Include="extern.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="LocalPlayer.h">
+    <ClInclude Include="includes.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Offsets.h">
+    <ClInclude Include="offsets.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>header</Filter>
+    <ClInclude Include="Aimbot\Aimbot.h">
+      <Filter>Aimbot\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>header</Filter>
+    <ClInclude Include="Aimbot\LocalPlayer.h">
+      <Filter>Aimbot\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Aimbot\Player.h">
+      <Filter>Aimbot\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP\esp.h">
+      <Filter>ESP\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\drawing.h">
+      <Filter>Hook\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\dx.h">
+      <Filter>Hook\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\hook.h">
+      <Filter>Hook\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,4 @@
-#include "Player.h"
-#include "LocalPlayer.h"
-
-#ifndef AIMBOT_H
-#define AIMBOT_H
+#include "Aimbot.h"
 
 Player* GetClosestEnemy() {
 	LocalPlayer* localPlayer = LocalPlayer::Get();
@@ -14,9 +10,9 @@ Player* GetClosestEnemy() {
 		Player* currentPlayer = Player::GetPlayer(i);
 
 		if (!currentPlayer || !(*(uint32_t*)currentPlayer) || (uint32_t)currentPlayer == (uint32_t)localPlayer) continue;
-		if (*currentPlayer->GetTeam() == *localPlayer->GetTeam()) continue;
+		//if (*currentPlayer->GetTeam() == *localPlayer->GetTeam()) continue;
 		if (*currentPlayer->GetHealth() < 1 || *localPlayer->GetHealth() < 1) continue;
-		
+
 
 		float currentDistance = localPlayer->GetDistance(currentPlayer->GetOrigin());
 		if (currentDistance < closestDistance) {
@@ -29,12 +25,9 @@ Player* GetClosestEnemy() {
 	if (closestDistanceIndex == -1) return NULL;
 
 	return Player::GetPlayer(closestDistanceIndex);
-
 }
 
 void Run() {
 	Player* closestEnemy = GetClosestEnemy();
 	if (closestEnemy) LocalPlayer::Get()->AimAt(closestEnemy->GetBonePos(8));
 }
-
-#endif // !AIMBOT_H

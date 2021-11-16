@@ -4,25 +4,25 @@
 
 LocalPlayer* LocalPlayer::Get() {
 	static uint32_t clientModule = (uint32_t)(GetModuleHandle(L"client.dll")); //parnorama?
-	static LocalPlayer* localPlayer = (LocalPlayer*)(clientModule + hazedumper::signatures::dwLocalPlayer);
+	static LocalPlayer* localPlayer = (LocalPlayer*)(clientModule + offsets::dwLocalPlayer);
 
 	return localPlayer;
 }
 
 Vector3* LocalPlayer::GetOrigin() {
-	return (Vector3*)(*(uintptr_t*)this + hazedumper::netvars::m_vecOrigin);
+	return (Vector3*)(*(uintptr_t*)this + offsets::m_vecOrigin);
 }
 
 Vector3* LocalPlayer::GetViewOffset() {
-	return (Vector3*)(*(uintptr_t*)this + hazedumper::netvars::m_vecViewOffset);
+	return (Vector3*)(*(uintptr_t*)this + offsets::m_vecViewOffset);
 }
 
 int* LocalPlayer::GetHealth() {
-	return (int*)(*(uintptr_t*)this + hazedumper::netvars::m_iHealth);
+	return (int*)(*(uintptr_t*)this + offsets::m_iHealth);
 }
 
 int* LocalPlayer::GetTeam() {
-	return (int*)(*(uintptr_t*)this + hazedumper::netvars::m_iTeamNum);
+	return (int*)(*(uintptr_t*)this + offsets::m_iTeamNum);
 }
 
 float LocalPlayer::GetDistance(Vector3* other) {
@@ -34,7 +34,7 @@ float LocalPlayer::GetDistance(Vector3* other) {
 
 void LocalPlayer::AimAt(Vector3* target) {
 	static uint32_t engineModule = (uint32_t)GetModuleHandle(L"engine.dll");
-	static Vector3* viewAngles = (Vector3*)(*(uint32_t*)(engineModule + hazedumper::signatures::dwClientState) + hazedumper::signatures::dwClientState_ViewAngles);
+	static Vector3* viewAngles = (Vector3*)(*(uint32_t*)(engineModule + offsets::dwClientState) + offsets::dwClientState_ViewAngles);
 
 	Vector3 origin = *GetOrigin();
 	Vector3 viewOffset = *GetViewOffset();
